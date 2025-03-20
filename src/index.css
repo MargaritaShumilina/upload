@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  background: linear-gradient(135deg, #f5f9ff, #c8d7fe);
+  font-family: sans-serif;
+  color: #333;
+}
+#root {
+  min-height: 100vh;
+}

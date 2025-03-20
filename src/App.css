@@ -1,0 +1,122 @@
+/* App.css */
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  /* Светлый градиент для блока */
+  background: linear-gradient(135deg, #ffffff, #f0f0ff);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.label span {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.text-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropZone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  background: #fafafa;
+  margin-bottom: 16px;
+}
+
+.dropZone p {
+  margin: 0 0 8px;
+  color: #666;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 8px;
+}
+
+.upload-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  /* Градиент кнопки, близкий к макету */
+  background: linear-gradient(90deg, #4D70FF, #7F95FF);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.upload-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.uploading-state {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #4d70ff;
+  transition: width 0.2s ease;
+}
+
+.abort-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.success-state {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #e2ffe5;
+  color: #0a540c;
+  border: 1px solid #8ee08f;
+}
+
+.error-state {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  /* Красный градиент для ошибки */
+  background: linear-gradient(to right, #ff7070, #ff4343);
+  color: #fff;
+  border: 1px solid #c00;
+}
+
+.error-state h4 {
+  margin-top: 0;
+}
