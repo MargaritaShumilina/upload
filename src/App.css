@@ -1,10 +1,9 @@
-/* App.css */
+/* Примерная стилизация */
 .container {
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
   border-radius: 12px;
-  /* Светлый градиент для блока */
   background: linear-gradient(135deg, #ffffff, #f0f0ff);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
@@ -26,12 +25,6 @@ h2 {
   font-weight: 600;
 }
 
-.text-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
 .dropZone {
   border: 2px dashed #ccc;
   border-radius: 8px;
@@ -46,34 +39,33 @@ h2 {
   color: #666;
 }
 
-.file-name {
+.fileName {
   font-size: 0.9rem;
   color: #333;
   margin-top: 8px;
 }
 
-.upload-btn {
+.uploadBtn {
   width: 100%;
   padding: 12px;
   border: none;
   border-radius: 8px;
-  /* Градиент кнопки, близкий к макету */
   background: linear-gradient(90deg, #4D70FF, #7F95FF);
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
 }
-.upload-btn:disabled {
+.uploadBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.uploading-state {
+.uploadingState {
   margin-top: 16px;
   text-align: center;
 }
 
-.progress-bar {
+.progressBar {
   width: 100%;
   height: 8px;
   background: #eee;
@@ -82,13 +74,13 @@ h2 {
   overflow: hidden;
 }
 
-.progress-fill {
+.progressFill {
   height: 100%;
   background: #4d70ff;
   transition: width 0.2s ease;
 }
 
-.abort-btn {
+.abortBtn {
   margin-top: 8px;
   padding: 6px 12px;
   border: 1px solid #999;
@@ -98,7 +90,7 @@ h2 {
   font-size: 0.9rem;
 }
 
-.success-state {
+.successState {
   margin-top: 16px;
   padding: 12px;
   border-radius: 8px;
@@ -107,16 +99,15 @@ h2 {
   border: 1px solid #8ee08f;
 }
 
-.error-state {
+.errorState {
   margin-top: 16px;
   padding: 12px;
   border-radius: 8px;
-  /* Красный градиент для ошибки */
   background: linear-gradient(to right, #ff7070, #ff4343);
   color: #fff;
   border: 1px solid #c00;
 }
 
-.error-state h4 {
+.errorState h4 {
   margin-top: 0;
 }
