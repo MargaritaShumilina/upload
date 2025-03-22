@@ -7,17 +7,11 @@ import {
     ERROR_MESSAGE_SIZE_OF_FILE,
     ERROR_MESSAGE_TYPE_OF_FILE,
     ERROR_MESSAGE_UPLOAD_IS_REJECTED,
-    ERROR_OF_UPLOAD, STATUS_ERROR, STATUS_IDLE, STATUS_SUCCESS, STATUS_UPLOADING,
-    TEXT_UNDER_INPUT,
-    TEXT_ZONE_DRAG_DROP
+    ERROR_OF_UPLOAD, SIZE_OF_FILE, STATUS_ERROR, STATUS_IDLE, STATUS_SUCCESS, STATUS_UPLOADING, UNKNOWN_ERROR,
 } from "./utils/constants.js";
 import {isValidFileType} from "./utils/helpers/isValidFileChange.js";
 import {Popup} from "./components/Popup/Popup.jsx";
-import {ProgressBar} from "./components/ProgressBar/ProgressBar.jsx";
-import {Button} from "./components/Button/Button.jsx";
-import {ButtonCross} from "./components/ButtonCross/ButtonCross.jsx";
-import deleteIcon from "./image/delete-button.png";
-import folderIcon from "./image/docs-pic.png";
+import {StartScreen} from "./components/StartScreen/StartScreen.jsx";
 
 export default function App() {
     const [nameValue, setNameValue] = useState('');
@@ -62,7 +56,7 @@ export default function App() {
             setStatus(STATUS_ERROR);
             return;
         }
-        if (file.size > 1024) {
+        if (file.size > SIZE_OF_FILE) {
             setErrorMsg(ERROR_MESSAGE_SIZE_OF_FILE);
             setStatus(STATUS_ERROR);
             return;
@@ -84,7 +78,7 @@ export default function App() {
             setStatus(STATUS_SUCCESS);
         } catch (err) {
             console.warn(ERROR_OF_UPLOAD, err);
-            setErrorMsg(err?.error || 'Неизвестная ошибка');
+            setErrorMsg(err?.error || UNKNOWN_ERROR);
             setStatus(STATUS_ERROR);
         } finally {
             currentUploadRef.current = null;
@@ -102,9 +96,6 @@ export default function App() {
         }
     }
 
-    function handleDragOver(e) {
-        e.preventDefault();
-    }
     function handleDrop(e) {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files?.[0];
@@ -117,44 +108,26 @@ export default function App() {
         setFile(null);
     }
 
+    function handleSetNameValue(value) {
+        setNameValue(value);
+    }
+
     return (
         <div className="container">
             <Popup handleDeleteFile={handleDeleteFile} status={status}>
                 {(status === STATUS_IDLE || status === STATUS_UPLOADING) && (
-                    <>
-                        <label className="label">
-                            <span>{TEXT_UNDER_INPUT}</span>
-                            <input
-                                type="text"
-                                value={nameValue}
-                                onChange={(e) => setNameValue(e.target.value)}
-                                placeholder="Название файла"
-                            />
-                            <ButtonCross onClick={handleDeleteFile} className="abortBtn">
-                                <img src={deleteIcon} alt="delete"/>
-                            </ButtonCross>
-                        </label>
-                        <div
-                            className="dropZone"
-                            onDragOver={handleDragOver}
-                            onDrop={handleDrop}
-                        >
-                            <img src={folderIcon} alt="folder icon" className="folderIcon" />
-                            <p className={'input'} onChange={handleFileChange}>{TEXT_ZONE_DRAG_DROP}</p>
-                            {!file && <input type="file" onChange={handleFileChange} />}
-                        </div>
-                        {status === STATUS_UPLOADING && (
-                            <ProgressBar progress={progress} handleAbort={handleAbort} fileName={nameValue}/>
-                        )}
-                        <Button
-                            styleButton="uploadBtn"
-                            handleUpload={handleUpload}
-                            disabled={status === 'uploading' || !file}
-                        >
-                            Загрузка
-                        </Button>
-                    </>
-                )}
+                    <StartScreen
+                        nameValue={nameValue}
+                        handleSetNameValue={handleSetNameValue}
+                        progress={progress}
+                        handleAbort={handleAbort}
+                        status={status}
+                        handleDeleteFile={handleDeleteFile}
+                        handleDrop={handleDrop}
+                        handleFileChange={handleFileChange}
+                        file={file}
+                        handleUpload={handleUpload}
+                        />)}
 
                 {status === STATUS_SUCCESS && (
                     <pre>{JSON.stringify(serverResponse, null, 2)}</pre>

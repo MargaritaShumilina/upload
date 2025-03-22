@@ -4,6 +4,7 @@ export const ERROR_MESSAGE_TYPE_OF_FILE = 'Разрешены только .txt,
 export const ERROR_MESSAGE_SIZE_OF_FILE = 'Размер файла превышает 1024 байта'
 export const ERROR_MESSAGE_UPLOAD_IS_REJECTED = 'Ошибка при загрузке файла'
 export const ERROR_OF_UPLOAD = 'Неизвестная ошибка'
+export const UNKNOWN_ERROR = 'Неизвестная ошибка'
 
 export const TEXT_OF_HEADING = 'Загрузочное окно'
 export const TEXT_UNDER_INPUT = 'Перед загрузкой дайте имя файлу'
@@ -15,3 +16,5 @@ export const STATUS_IDLE = 'idle'
 export const STATUS_UPLOADING = 'uploading'
 export const STATUS_SUCCESS = 'success'
 export const STATUS_ERROR = 'error'
+
+export const SIZE_OF_FILE = '1024'
