@@ -17,6 +17,7 @@ import {ProgressBar} from "./components/ProgressBar/ProgressBar.jsx";
 import {Button} from "./components/Button/Button.jsx";
 import {ButtonCross} from "./components/ButtonCross/ButtonCross.jsx";
 import deleteIcon from "./image/delete-button.png";
+import folderIcon from "./image/docs-pic.png";
 
 export default function App() {
     const [nameValue, setNameValue] = useState('');
@@ -138,9 +139,9 @@ export default function App() {
                             onDragOver={handleDragOver}
                             onDrop={handleDrop}
                         >
+                            <img src={folderIcon} alt="folder icon" className="folderIcon" />
                             <p>{TEXT_ZONE_DRAG_DROP}</p>
                             <input type="file" onChange={handleFileChange} />
-                            {/*{file && <p className="fileName">Выбран файл: {file.name}</p>}*/}
                         </div>
                         {status === STATUS_UPLOADING && (
                             <ProgressBar progress={progress} handleAbort={handleAbort} />
@@ -148,7 +149,7 @@ export default function App() {
                         <Button
                             styleButton="uploadBtn"
                             handleUpload={handleUpload}
-                            disabled={status === 'uploading'}
+                            disabled={status === 'uploading' || !file}
                         >
                             Загрузка
                         </Button>

@@ -1,11 +1,11 @@
 import './Button.css';
 
-export const Button = ({children, styleButton, handleUpload, status}) => {
+export const Button = ({children, styleButton, handleUpload, ...props}) => {
     return (
         <button
             className={`button ${styleButton}`}
             onClick={handleUpload}
-            disabled={status === 'uploading'}
+            {...props}
         >
             {children}
         </button>
