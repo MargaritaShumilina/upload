@@ -8,19 +8,20 @@ import {
     ERROR_MESSAGE_TYPE_OF_FILE,
     ERROR_MESSAGE_UPLOAD_IS_REJECTED,
     ERROR_OF_UPLOAD, STATUS_ERROR, STATUS_IDLE, STATUS_SUCCESS, STATUS_UPLOADING,
-    TEXT_OF_HEADING,
     TEXT_UNDER_INPUT,
     TEXT_ZONE_DRAG_DROP
 } from "./utils/constants.js";
 import {isValidFileType} from "./utils/helpers/isValidFileChange.js";
-import {Heading} from "./components/Heading/Heading.jsx";
 import {Popup} from "./components/Popup/Popup.jsx";
 import {ProgressBar} from "./components/ProgressBar/ProgressBar.jsx";
+import {Button} from "./components/Button/Button.jsx";
+import {ButtonCross} from "./components/ButtonCross/ButtonCross.jsx";
+import deleteIcon from "./image/delete-button.png";
 
 export default function App() {
     const [nameValue, setNameValue] = useState('');
     const [file, setFile] = useState(null);
-    const [status, setStatus] = useState(STATUS_IDLE); // idle | uploading | success | error
+    const [status, setStatus] = useState(STATUS_IDLE);
     const [progress, setProgress] = useState(0);
     const [serverResponse, setServerResponse] = useState(null);
     const [errorMsg, setErrorMsg] = useState('');
@@ -116,62 +117,52 @@ export default function App() {
     }
 
     return (
-<>
-        {status === STATUS_IDLE &&
-
         <div className="container">
-            <button onClick={handleDeleteFile} className="abortBtn">
-            </button>
-            <Heading>{TEXT_OF_HEADING}</Heading>
+            <Popup handleDeleteFile={handleDeleteFile} status={status}>
+                {status === STATUS_IDLE && (
+                    <>
+                        <label className="label">
+                            <span>{TEXT_UNDER_INPUT}</span>
+                            <input
+                                type="text"
+                                value={nameValue}
+                                onChange={(e) => setNameValue(e.target.value)}
+                                placeholder="Название файла"
+                            />
+                            <ButtonCross onClick={handleDeleteFile} className="abortBtn">
+                                <img src={deleteIcon} alt="delete"/>
+                            </ButtonCross>
+                        </label>
+                        <div
+                            className="dropZone"
+                            onDragOver={handleDragOver}
+                            onDrop={handleDrop}
+                        >
+                            <p>{TEXT_ZONE_DRAG_DROP}</p>
+                            <input type="file" onChange={handleFileChange} />
+                            {/*{file && <p className="fileName">Выбран файл: {file.name}</p>}*/}
+                        </div>
+                        {status === STATUS_UPLOADING && (
+                            <ProgressBar progress={progress} handleAbort={handleAbort} />
+                        )}
+                        <Button
+                            styleButton="uploadBtn"
+                            handleUpload={handleUpload}
+                            disabled={status === 'uploading'}
+                        >
+                            Загрузка
+                        </Button>
+                    </>
+                )}
 
-            <label className="label">
-                <span>{TEXT_UNDER_INPUT}</span>
-                <input
-                    type="text"
-                    value={nameValue}
-                    onChange={(e) => setNameValue(e.target.value)}
-                    placeholder="Название файла"
-                />
-                <button onClick={handleDeleteFile} className="abortBtn">
-                    Отмена
-                </button>
-            </label>
-
-            <div
-                className="dropZone"
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-            >
-                <p>{TEXT_ZONE_DRAG_DROP}</p>
-                <input type="file" onChange={handleFileChange} />
-                {file && <p className="fileName">Выбран файл: {file.name}</p>}
-            </div>
-
-            <button
-                className="uploadBtn"
-                onClick={handleUpload}
-                disabled={status === 'uploading'}
-            >
-                Загрузка
-            </button>
-
-            {status === STATUS_UPLOADING && (
-                <ProgressBar progress={progress} handleAbort={handleAbort}/>
-            )}
-        </div>
-
-        }
-            {status === STATUS_SUCCESS && (
-                <Popup style="successState">
+                {status === STATUS_SUCCESS && (
                     <pre>{JSON.stringify(serverResponse, null, 2)}</pre>
-                </Popup>
-            )}
+                )}
 
-            {status === STATUS_ERROR && (
-                <Popup style="errorState" stutus={status}>
+                {status === STATUS_ERROR && (
                     <p>{errorMsg}</p>
-                </Popup>
-            )}
-</>
+                )}
+            </Popup>
+        </div>
     );
 }

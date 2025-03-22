@@ -1,5 +1,10 @@
-export const ButtonCross = ({children}) => {
+export const ButtonCross = ({children, styleButtonCross, handleDeleteFile}) => {
     return (
-        {children}
+        <button
+            className={`buttonCross ${styleButtonCross}`}
+            onClick={handleDeleteFile}
+        >
+            {children}
+        </button>
     )
 }
