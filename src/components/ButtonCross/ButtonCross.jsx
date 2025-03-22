@@ -1,3 +1,5 @@
+import './ButtonCross.css';
+
 export const ButtonCross = ({children, styleButtonCross, handleDeleteFile}) => {
     return (
         <button

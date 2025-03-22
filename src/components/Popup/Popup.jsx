@@ -10,6 +10,7 @@ import {
 import React from "react";
 import {ButtonCross} from "../ButtonCross/ButtonCross.jsx";
 import closeIcon from "../../image/cross-button.png";
+import './Popup.css';
 
 export const Popup = ({children, style, status, handleDeleteFile}) => {
     return (
