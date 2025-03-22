@@ -119,7 +119,7 @@ export default function App() {
     return (
         <div className="container">
             <Popup handleDeleteFile={handleDeleteFile} status={status}>
-                {status === STATUS_IDLE && (
+                {status === STATUS_IDLE && status === STATUS_UPLOADING && (
                     <>
                         <label className="label">
                             <span>{TEXT_UNDER_INPUT}</span>
