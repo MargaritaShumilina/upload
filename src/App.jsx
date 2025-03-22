@@ -140,8 +140,8 @@ export default function App() {
                             onDrop={handleDrop}
                         >
                             <img src={folderIcon} alt="folder icon" className="folderIcon" />
-                            <p>{TEXT_ZONE_DRAG_DROP}</p>
-                            <input type="file" onChange={handleFileChange} />
+                            <p className={'input'} onChange={handleFileChange}>{TEXT_ZONE_DRAG_DROP}</p>
+                            {/*<input type="file" onChange={handleFileChange} />*/}
                         </div>
                         {status === STATUS_UPLOADING && (
                             <ProgressBar progress={progress} handleAbort={handleAbort} />
