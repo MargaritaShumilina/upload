@@ -17,3 +17,64 @@
     background: #4d70ff;
     transition: width 0.2s ease;
 }
+
+/* Контейнер всего прогресс-блока */
+.progressBarContainer {
+    /* Фон/обводка/радиус можно менять по вкусу */
+    background: #f9f9ff;
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Шапка (название файла, процент, кнопка) в одну строку */
+.progressBarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px; /* отступ под полоской */
+}
+
+.fileName {
+    color: #5f5cf0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.progressPercent {
+    color: #5f5cf0;
+    font-size: 14px;
+    margin: 0 8px;
+}
+
+.abortButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5f5cf0;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px;
+}
+
+/* Пустая «дорожка» прогресса */
+.progressBarTrack {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Заполненная часть (цветная полоска),
+   ширина зависит от progress (в процентах) */
+.progressBarFill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #5f5cf0; /* Или ваш градиент */
+    transition: width 0.3s ease;
+}

@@ -1,19 +1,29 @@
 import React from "react";
 import './ProgressBar.css';
 
-export const ProgressBar = ({progress, handleAbort}) => {
+export const ProgressBar = ({progress, handleAbort, fileName}) => {
     return (
         <div className="uploadingState">
-            <p>{progress}%</p>
-            <div className="progressBar">
+            <div className="progressBarHeader">
+                {/* Слева — введённое название файла */}
+                <span className="fileName">{fileName || "Безымянный"}</span>
+
+                {/* Справа — процент загрузки */}
+                <span className="progressPercent">{progress}%</span>
+
+                {/* Кнопка прерывания загрузки */}
+                <button className="abortButton" onClick={handleAbort}>
+                    X
+                </button>
+            </div>
+
+            {/* Сама «полоска» прогресса */}
+            <div className="progressBarTrack">
                 <div
-                    className="progressFill"
-                    style={{ width: progress + '%' }}
+                    className="progressBarFill"
+                    style={{ width: `${progress}%` }}
                 />
             </div>
-            <button onClick={handleAbort} className="abortBtn">
-                Отмена
-            </button>
         </div>
     )
 }

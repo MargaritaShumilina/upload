@@ -50,6 +50,7 @@
             #5F5CF0 0%,
             #8F8DF4 50%
     );
+    max-height: 230px;
 }
 
 .errorState {
@@ -58,4 +59,5 @@
             #F05C5C 0%,
             #8F8DF4 50%
     );
+    max-height: 230px;
 }

@@ -141,10 +141,10 @@ export default function App() {
                         >
                             <img src={folderIcon} alt="folder icon" className="folderIcon" />
                             <p className={'input'} onChange={handleFileChange}>{TEXT_ZONE_DRAG_DROP}</p>
-                            <input type="file" onChange={handleFileChange} />
+                            {!file && <input type="file" onChange={handleFileChange} />}
                         </div>
                         {status === STATUS_UPLOADING && (
-                            <ProgressBar progress={progress} handleAbort={handleAbort} />
+                            <ProgressBar progress={progress} handleAbort={handleAbort} fileName={nameValue}/>
                         )}
                         <Button
                             styleButton="uploadBtn"
