@@ -14,7 +14,14 @@ import './Popup.css';
 
 export const Popup = ({children, status, handleDeleteFile}) => {
     return (
-        <div className={`popup ${(status === STATUS_IDLE || status === STATUS_UPLOADING) && 'defaultState'} ${STATUS_SUCCESS && 'successState'} ${STATUS_ERROR && 'errorState'}`}>
+        <div
+            className={`
+    popup
+    ${(status === STATUS_IDLE || status === STATUS_UPLOADING) ? 'defaultState' : ''}
+    ${status === STATUS_SUCCESS ? 'successState' : ''}
+    ${status === STATUS_ERROR ? 'errorState' : ''}
+  `}
+        >
             <ButtonCross onClick={handleDeleteFile} styleButtonCross="abortBtn"><img src={closeIcon} alt="close"/></ButtonCross>
             <Heading>
                 {(status === STATUS_IDLE || status === STATUS_UPLOADING) && TEXT_OF_HEADING}

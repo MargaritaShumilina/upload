@@ -34,3 +34,28 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.defaultState {
+    background: linear-gradient(
+            180deg,
+            #5F5CF0 0%,
+            #DDDCFC 50%,
+            #FFFFFF 100%
+    );
+}
+
+.successState {
+    background: linear-gradient(
+            180deg,
+            #5F5CF0 0%,
+            #8F8DF4 50%
+    );
+}
+
+.errorState {
+    background: linear-gradient(
+            180deg,
+            #F05C5C 0%,
+            #8F8DF4 50%
+    );
+}
