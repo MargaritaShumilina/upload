@@ -1,0 +1,29 @@
+.uploadingState {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.progressBar {
+    width: 100%;
+    height: 8px;
+    background: #eee;
+    border-radius: 4px;
+    margin: 8px 0;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: #4d70ff;
+    transition: width 0.2s ease;
+}
+
+.abortBtn {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+}

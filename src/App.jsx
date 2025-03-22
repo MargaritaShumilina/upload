@@ -1,23 +1,31 @@
-// App.jsx
 import React, { useState, useRef } from 'react';
-import { uploadFile } from './upload';
+import { uploadFile } from './utils/api/upload.js';
 import './App.css';
+import {
+    ERROR_MESSAGE_CHOOSE_FILE,
+    ERROR_MESSAGE_NAME_OF_FILE,
+    ERROR_MESSAGE_SIZE_OF_FILE,
+    ERROR_MESSAGE_TYPE_OF_FILE,
+    ERROR_MESSAGE_UPLOAD_IS_REJECTED,
+    ERROR_OF_UPLOAD, STATUS_ERROR, STATUS_IDLE, STATUS_SUCCESS, STATUS_UPLOADING,
+    TEXT_OF_HEADING,
+    TEXT_UNDER_INPUT,
+    TEXT_ZONE_DRAG_DROP
+} from "./utils/constants.js";
+import {isValidFileType} from "./utils/helpers/isValidFileChange.js";
+import {Heading} from "./components/Heading/Heading.jsx";
+import {Popup} from "./components/Popup/Popup.jsx";
+import {ProgressBar} from "./components/ProgressBar/ProgressBar.jsx";
 
 export default function App() {
     const [nameValue, setNameValue] = useState('');
     const [file, setFile] = useState(null);
-    const [status, setStatus] = useState('idle'); // idle | uploading | success | error
+    const [status, setStatus] = useState(STATUS_IDLE); // idle | uploading | success | error
     const [progress, setProgress] = useState(0);
     const [serverResponse, setServerResponse] = useState(null);
     const [errorMsg, setErrorMsg] = useState('');
 
-    // ref, чтобы при желании можно было вызвать abort() на xhr
     const currentUploadRef = useRef(null);
-
-    // Проверяем формат файла
-    function isValidFileType(fileName = '') {
-        return (/\.(txt|json|csv)$/i).test(fileName);
-    }
 
     // Обработчик выбора файла
     function handleFileChange(e) {
@@ -31,71 +39,67 @@ export default function App() {
 
     // Основная функция отправки
     async function handleUpload() {
-        // Сброс состояний
-        setStatus('idle');
+        setStatus(STATUS_IDLE);
         setServerResponse(null);
         setErrorMsg('');
         setProgress(0);
 
         // Валидация
         if (!nameValue.trim()) {
-            setErrorMsg('Введите имя перед загрузкой');
-            setStatus('error');
+            setErrorMsg(ERROR_MESSAGE_NAME_OF_FILE);
+            setStatus(STATUS_ERROR);
             return;
         }
         if (!file) {
-            setErrorMsg('Выберите файл');
-            setStatus('error');
+            setErrorMsg(ERROR_MESSAGE_CHOOSE_FILE);
+            setStatus(STATUS_ERROR);
             return;
         }
         if (!isValidFileType(file.name)) {
-            setErrorMsg('Разрешены только .txt, .json, .csv');
-            setStatus('error');
+            setErrorMsg(ERROR_MESSAGE_TYPE_OF_FILE);
+            setStatus(STATUS_ERROR);
             return;
         }
         if (file.size > 1024) {
-            setErrorMsg('Размер файла превышает 1024 байта');
-            setStatus('error');
+            setErrorMsg(ERROR_MESSAGE_SIZE_OF_FILE);
+            setStatus(STATUS_ERROR);
             return;
         }
 
-        setStatus('uploading');
+        setStatus(STATUS_UPLOADING);
 
-        // Запускаем загрузку
+        // Загрузка
         const uploadPromise = uploadFile(file, nameValue, {
             onProgress: (pct) => {
                 setProgress(pct);
             },
         });
-        // Сохраняем, чтобы иметь возможность .abort()
         currentUploadRef.current = uploadPromise;
 
         try {
-            const result = await uploadPromise; // ждём ответа
+            const result = await uploadPromise;
             setServerResponse(result);
-            setStatus('success');
+            setStatus(STATUS_SUCCESS);
         } catch (err) {
-            console.warn('Ошибка при загрузке', err);
+            console.warn(ERROR_OF_UPLOAD, err);
             setErrorMsg(err?.error || 'Неизвестная ошибка');
-            setStatus('error');
+            setStatus(STATUS_ERROR);
         } finally {
-            // Зачистка
             currentUploadRef.current = null;
         }
     }
 
-    // Возможность прервать загрузку
+    // Прерыване загрузки
     function handleAbort() {
         if (currentUploadRef.current) {
             currentUploadRef.current.abort();
             currentUploadRef.current = null;
-            setStatus('idle');
+            setStatus(STATUS_IDLE);
             setProgress(0);
-            setErrorMsg('Загрузка отменена пользователем');
+            setErrorMsg(ERROR_MESSAGE_UPLOAD_IS_REJECTED);
         }
     }
 
-    // Дополнительно: drag&drop (необязательно, но в ТЗ упоминается перетаскивание)
     function handleDragOver(e) {
         e.preventDefault();
     }
@@ -107,72 +111,67 @@ export default function App() {
         }
     }
 
-    return (
-        <div className="container">
-            <h2>Загрузочное окно</h2>
+    function handleDeleteFile() {
+        setFile(null);
+    }
 
-            {/* Поле имени */}
+    return (
+<>
+        {status === STATUS_IDLE &&
+
+        <div className="container">
+            <button onClick={handleDeleteFile} className="abortBtn">
+            </button>
+            <Heading>{TEXT_OF_HEADING}</Heading>
+
             <label className="label">
-                <span>Имя файла (или пользователя):</span>
+                <span>{TEXT_UNDER_INPUT}</span>
                 <input
                     type="text"
                     value={nameValue}
                     onChange={(e) => setNameValue(e.target.value)}
-                    placeholder="Введите имя"
+                    placeholder="Название файла"
                 />
+                <button onClick={handleDeleteFile} className="abortBtn">
+                    Отмена
+                </button>
             </label>
 
-            {/* Зона для drag & drop + обычный выбор файла */}
             <div
                 className="dropZone"
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
             >
-                <p>Перетащите файл сюда или выберите:</p>
+                <p>{TEXT_ZONE_DRAG_DROP}</p>
                 <input type="file" onChange={handleFileChange} />
                 {file && <p className="fileName">Выбран файл: {file.name}</p>}
             </div>
 
-            {/* Кнопка Загрузить */}
             <button
                 className="uploadBtn"
                 onClick={handleUpload}
                 disabled={status === 'uploading'}
             >
-                Загрузить
+                Загрузка
             </button>
 
-            {/* Отображение прогресса */}
-            {status === 'uploading' && (
-                <div className="uploadingState">
-                    <p>Загружаю... {progress}%</p>
-                    <div className="progressBar">
-                        <div
-                            className="progressFill"
-                            style={{ width: progress + '%' }}
-                        />
-                    </div>
-                    <button onClick={handleAbort} className="abortBtn">
-                        Отмена
-                    </button>
-                </div>
-            )}
-
-            {/* Сообщение об успехе */}
-            {status === 'success' && (
-                <div className="successState">
-                    <h4>Файл успешно загружен!</h4>
-                    <pre>{JSON.stringify(serverResponse, null, 2)}</pre>
-                </div>
-            )}
-
-            {/* Сообщение об ошибке */}
-            {status === 'error' && (
-                <div className="errorState">
-                    <h4>Ошибка при загрузке файла</h4>
-                    <p>{errorMsg}</p>
-                </div>
+            {status === STATUS_UPLOADING && (
+                <ProgressBar progress={progress} handleAbort={handleAbort}/>
             )}
         </div>
+
+        }
+            {status === STATUS_SUCCESS && (
+                <Popup style="successState">
+                    <pre>{JSON.stringify(serverResponse, null, 2)}</pre>
+                </Popup>
+            )}
+
+            {status === STATUS_ERROR && (
+                <Popup style="errorState" stutus={status}>
+                    <p>{errorMsg}</p>
+                </Popup>
+            )}
+</>
     );
 }

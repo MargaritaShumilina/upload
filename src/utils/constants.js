@@ -1,0 +1,17 @@
+export const ERROR_MESSAGE_NAME_OF_FILE = 'Введите имя перед загрузкой'
+export const ERROR_MESSAGE_CHOOSE_FILE = 'Выберите файл'
+export const ERROR_MESSAGE_TYPE_OF_FILE = 'Разрешены только .txt, .json, .csv'
+export const ERROR_MESSAGE_SIZE_OF_FILE = 'Размер файла превышает 1024 байта'
+export const ERROR_MESSAGE_UPLOAD_IS_REJECTED = 'Ошибка при загрузке файла'
+export const ERROR_OF_UPLOAD = 'Неизвестная ошибка'
+
+export const TEXT_OF_HEADING = 'Загрузочное окно'
+export const TEXT_UNDER_INPUT = 'Перед загрузкой дайте имя файлу'
+export const TEXT_ZONE_DRAG_DROP = 'Перенесите ваш файл в область ниже'
+export const TEXT_SUCCESS = 'Файл успешно загружен'
+export const TEXT_ERROR = 'Ошибка при загрузке файла'
+
+export const STATUS_IDLE = 'idle'
+export const STATUS_UPLOADING = 'uploading'
+export const STATUS_SUCCESS = 'success'
+export const STATUS_ERROR = 'error'
