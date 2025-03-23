@@ -1,10 +1,14 @@
 .uploadingState {
     margin-top: 16px;
+    margin-bottom: 16px;
     text-align: center;
+    width: 100%;
+    position: relative;
+    align-self: flex-start;
 }
 
 .progressBar {
-    width: 100%;
+    width: 80%;
     height: 8px;
     background: #eee;
     border-radius: 4px;
@@ -18,22 +22,20 @@
     transition: width 0.2s ease;
 }
 
-/* Контейнер всего прогресс-блока */
 .progressBarContainer {
-    /* Фон/обводка/радиус можно менять по вкусу */
     background: #f9f9ff;
     border-radius: 16px;
     padding: 12px 16px;
     margin-top: 16px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 80%;
 }
 
-/* Шапка (название файла, процент, кнопка) в одну строку */
 .progressBarHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px; /* отступ под полоской */
+    margin-bottom: 8px;
 }
 
 .fileName {
@@ -56,9 +58,10 @@
     font-size: 16px;
     line-height: 1;
     padding: 4px;
+    top: 0;
+    right: -20px;
 }
 
-/* Пустая «дорожка» прогресса */
 .progressBarTrack {
     position: relative;
     width: 100%;
@@ -68,13 +71,11 @@
     overflow: hidden;
 }
 
-/* Заполненная часть (цветная полоска),
-   ширина зависит от progress (в процентах) */
 .progressBarFill {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
-    background: #5f5cf0; /* Или ваш градиент */
+    background: #5f5cf0;
     transition: width 0.3s ease;
 }

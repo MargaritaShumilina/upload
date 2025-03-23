@@ -12,7 +12,7 @@ import {ButtonCross} from "../ButtonCross/ButtonCross.jsx";
 import closeIcon from "../../image/crossbutton.png";
 import './Popup.css';
 
-export const Popup = ({children, status, handleDeleteFile}) => {
+export const Popup = ({children, status, handleSetStatus}) => {
     return (
         <div
             className={`
@@ -22,7 +22,7 @@ export const Popup = ({children, status, handleDeleteFile}) => {
     ${status === STATUS_ERROR ? 'errorState' : ''}
   `}
         >
-            <ButtonCross onClick={handleDeleteFile} styleButtonCross="abortBtn"><img src={closeIcon} alt="close"/></ButtonCross>
+            <ButtonCross handleOnClick={handleSetStatus} styleButtonCross="abortBtn"><img src={closeIcon} alt="close"/></ButtonCross>
             <Heading>
                 {(status === STATUS_IDLE || status === STATUS_UPLOADING) && TEXT_OF_HEADING}
                 {status === STATUS_SUCCESS && TEXT_SUCCESS}

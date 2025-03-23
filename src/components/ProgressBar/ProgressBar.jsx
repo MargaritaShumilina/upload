@@ -1,5 +1,7 @@
 import React from "react";
 import './ProgressBar.css';
+import {ButtonCross} from "../ButtonCross/ButtonCross.jsx";
+import deleteIcon from "../../image/delete-button.png";
 
 export const ProgressBar = ({progress, handleAbort, fileName}) => {
     return (
@@ -7,9 +9,9 @@ export const ProgressBar = ({progress, handleAbort, fileName}) => {
             <div className="progressBarHeader">
                 <span className="fileName">{fileName}</span>
                 <span className="progressPercent">{progress}%</span>
-                <button className="abortButton" onClick={handleAbort}>
-                    X
-                </button>
+                <ButtonCross styleButtonCross="abortButton" handleOnClick={handleAbort}>
+                    <img src={deleteIcon} alt="delete" />
+                </ButtonCross>
             </div>
             <div className="progressBarTrack">
                 <div

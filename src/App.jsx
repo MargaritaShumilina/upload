@@ -104,17 +104,19 @@ export default function App() {
         }
     }
 
-    function handleDeleteFile() {
-        setFile(null);
-    }
-
     function handleSetNameValue(value) {
         setNameValue(value);
     }
 
+    function handleSetStatus() {
+        setStatus(STATUS_IDLE);
+        setNameValue('');
+        setFile(null);
+    }
+
     return (
         <div className="container">
-            <Popup handleDeleteFile={handleDeleteFile} status={status}>
+            <Popup handleSetStatus={handleSetStatus} status={status}>
                 {(status === STATUS_IDLE || status === STATUS_UPLOADING) && (
                     <StartScreen
                         nameValue={nameValue}
@@ -122,7 +124,6 @@ export default function App() {
                         progress={progress}
                         handleAbort={handleAbort}
                         status={status}
-                        handleDeleteFile={handleDeleteFile}
                         handleDrop={handleDrop}
                         handleFileChange={handleFileChange}
                         file={file}

@@ -14,7 +14,6 @@ export const StartScreen = ({
                                 status,
                                 progress,
                                 handleDrop,
-                                handleDeleteFile,
                                 handleFileChange,
                                 file,
                                 handleAbort,
@@ -31,9 +30,6 @@ export const StartScreen = ({
                     onChange={(e) => handleSetNameValue(e.target.value)}
                     placeholder="Название файла"
                 />
-                <ButtonCross onClick={handleDeleteFile} className="abortBtn">
-                    <img src={deleteIcon} alt="delete"/>
-                </ButtonCross>
             </label>
             <div
                 className="dropZone"
