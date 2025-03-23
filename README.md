@@ -18,11 +18,11 @@
 ## Алгоритм запуска приложения
 1. **Склонируйте репозиторий** к себе на компьютер:
    ```bash
-   git clone https://github.com/ваш-репозиторий/your-project.git
+   git clone https://github.com/MargaritaShumilina/upload.git
 
 2. Перейдите в папку проекта:
    ```bash
-   cd your-project
+   cd upload
 
 3. Установите зависимости:
    ```bash
